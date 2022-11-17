@@ -3,10 +3,12 @@ import torch
 
 class Dataset:
     def __init__(self, data, dtype=torch.float32):
+    
         self._data = {
             "feature": torch.from_numpy(data["feature"]).to(dtype),
-            "target": torch.from_numpy(data["target"]).to(dtype),
         }
+        if "target" in data:
+            self._data["target"] = torch.from_numpy(data["target"]).to(dtype)
 
         if self._data["target"].dim() == 1:
             self._data["target"] = self._data["target"].unsqueeze(1)

@@ -23,6 +23,11 @@ def train_simple_model():
     model_dc_framework.train(train_data=data)
     model_dc_framework.save("tmp.pt")
 
+    model_dc_framework_new = dc_framework.load_from_checkpoint("tmp.pt", model, criterion, device="cpu")
+
+    print("predictions:", model_dc_framework_new.test(data))
+    print("mse:", model_dc_framework_new.validate(data))
+
 
 if __name__ == "__main__":
     train_simple_model()
